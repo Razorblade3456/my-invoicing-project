@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from 'react';
+
 import { sql } from 'drizzle-orm';
 
 import { db } from '@/db';
@@ -7,9 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-export default async function Home() {
-  const results = await db.execute(sql`SELECT current_database()`)
-  console.log('results', results);
+import { createAction } from '@/actions';
+
+export default function Home() {
+  function handleOnSubmit() {
+
+  }
   return (
     <main className="flex flex-col justify-center h-full gap-6 max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
@@ -18,9 +25,7 @@ export default async function Home() {
         </h1>
       </div>
 
-      { JSON.stringify(results)}
-
-      <form className="grid gap-4 max-w-xs">
+      <form action={createAction} onSubmit={handleOnSubmit} className="grid gap-4 max-w-xs">
         <div>
           <Label htmlFor="name" className="block mb-2 text-sm font-semibold">
             Billing Name
