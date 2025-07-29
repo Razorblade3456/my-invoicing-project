@@ -1,11 +1,6 @@
-"use client"
+'use client'
 
 import { useState } from 'react';
-
-import { sql } from 'drizzle-orm';
-
-import { db } from '@/db';
-
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +9,11 @@ import { Button } from "@/components/ui/button";
 import { createAction } from '@/actions';
 
 export default function Home() {
+  const [state, setState] = useState('ready');
   function handleOnSubmit() {
+    if (state === 'pending') return;
+    setState('pending');
+    console.log('hey');
 
   }
   return (
