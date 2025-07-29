@@ -1,19 +1,28 @@
 'use client'
 
-import { useState } from 'react';
+import { SyntheticEvent, useState, startTransition } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import SubmitButton  from "@/components/SubmitButton";
 
 import { createAction } from '@/actions';
 
 export default function Home() {
   const [state, setState] = useState('ready');
-  function handleOnSubmit() {
+  async function handleOnSubmit(event: SyntheticEvent) {
+    event.preventDefault();
     if (state === 'pending') return;
+    const target = event.target as HTMLFormElement;
+
+    startTransition(async () => {
+    const formData = new FormData(target);
+    await createAction(formData);
     setState('pending');
     console.log('hey');
+    })
+
 
   }
   return (
@@ -54,9 +63,7 @@ export default function Home() {
         </div>
 
         <div>
-            <Button variant="ghost" type="submit" className="w-full font-semibold">
-                Submit Invoice
-            </Button>
+            <SubmitButton />
         </div>
 
       </form>
