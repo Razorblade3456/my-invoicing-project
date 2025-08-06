@@ -17,10 +17,10 @@ export default function Home() {
     const target = event.target as HTMLFormElement;
 
     startTransition(async () => {
+    console.log('hey');
     const formData = new FormData(target);
     await createAction(formData);
     setState('pending');
-    console.log('hey');
     })
 
 
